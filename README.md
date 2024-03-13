@@ -68,7 +68,15 @@ It helps the generative model to stay grounded in the available knowledge and ge
      <kbd>
         <img width=600 src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*0pQbhBEez7U-2knd.png">
      </kbd>
-
+5. **Reranking and Filtering:** Once we have our retrieved results, now it is time to make some transformation (filtering, reranking, etc.). There is a variety of available Postprocessors ([llama-index Postprocessors](https://docs.llamaindex.ai/en/stable/module_guides/querying/node_postprocessors/root.html)), that filter our results based on similarity score, keywords, metadata or reranking them with other models like an LLM.
+6. **Query Transformations:** modification to user input in order to improve retrieval quality.
+   * **e.g.** if the query is complex LLM can decompose it into sevral sub queries.
+     - **Step-back prompting:** uses LLM to general more query.
+     - **Query re-writing:** uses LLM to reformulate initial query in order to improve retrieval.
+7. **Chat Engine:** if you are building chat engine you should consider dialogue context (memory of the previos prompts). One way to do though is query compression technique for example:
+   * **Context Chat Engine:** first retrieve context relevant to user's query, then send it along side with chat history from memory buffer (have a look on my repo [langchain](https://github.com/ElDokmak/LangChain)).
+   * **Condense Plus Context Mode:** the chat history and last message are condensed into a new query, then this query goes to the index and the retrieved context is passed to LLM with the original user prompt to generate an answer.
+ 
 
 
 
